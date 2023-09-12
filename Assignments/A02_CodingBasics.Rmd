@@ -59,21 +59,96 @@ if(mean_seq_3 > median_seq_3){
 8.  Label the columns of your data frame with informative titles.
 
 ```{r basics 2}
+#5&6
+# (a) Names of students
+Students <- c("Aaron", "Abby", "Adam", "Alice", "Amy")
+class(Students)
+Students
+#The Students vector contains the names of students who took the test, it's a charactrer vector
+# (b) Test scores out of 100 points
+Test_Scores <- sample(0:100,5)
+class(Test_Scores)
+Test_Scores
+#The Test_Scores vector contains the scores of the students who are in the Student vector. It's an integer vector.
+
+# (c) Whether or not they have passed the test (TRUE or FALSE) with a passing grade of 50
+Results <- Test_Scores >= 50
+class(Results)
+Results
+#The Results vector contains the passing result of the students in Student vector. It's a logical vector.
+
+#7&8
+student_data <- data.frame(Name_of_Students = Students, Test_Score = Test_Scores, Passing_Results = Results)
+student_data
 
 ```
 
 9.  QUESTION: How is this data frame different from a matrix?
 
-> Answer:
+> Answer:For a matrix in R, it only reveals the values in the order that we want instead of telling you what does each row and column represent. Also Matrix is not as convenient as dataframe for reusing and reference.
 
 10. Create a function with an if/else statement. Your function should take a **vector** of test scores and print (not return) whether a given test score is a passing grade of 50 or above (TRUE or FALSE). You will need to choose either the `if` and `else` statements or the `ifelse` statement. 
 
 11. Apply your function to the vector with test scores that you created in number 5.
 
 ```{r basics 3}
-
+Passing_Result_1 <- function(Test_Scores){
+  for(x in Test_Scores){
+    if (x >= 50){
+      print("True")
+    }else{
+      print("False")
+    }
+  }
+}
+Passing_Result_2 <- function(Test_Scores){
+  ifelse(Test_Scores >= 50, "True", "False")
+}
+Passing_Result_1(Test_Scores)
+Passing_Result_2(Test_Scores)
 ```
 
 12. QUESTION: Which option of `if` and `else` vs. `ifelse` worked? Why?
 
-> Answer:
+> Answer: Based on the results of question 11, the output of if...else... and ifelse in this case is generally the same. However, since I wrote a "for" loop for "if...else...", the format of the result is little bit different. 
+I used the built-in "view" function in r to check the coe for "ifelse". Below is the code:
+```{r q12}
+function (test, yes, no) 
+{
+  if (is.atomic(test)) {
+    if (typeof(test) != "logical") 
+      storage.mode(test) <- "logical"
+    if (length(test) == 1 && is.null(attributes(test))) {
+      if (is.na(test)) 
+        return(NA)
+      else if (test) {
+        if (length(yes) == 1) {
+          yat <- attributes(yes)
+          if (is.null(yat) || (is.function(yes) && identical(names(yat), 
+            "srcref"))) 
+            return(yes)
+        }
+      }
+      else if (length(no) == 1) {
+        nat <- attributes(no)
+        if (is.null(nat) || (is.function(no) && identical(names(nat), 
+          "srcref"))) 
+          return(no)
+      }
+    }
+  }
+  else test <- if (isS4(test)) 
+    methods::as(test, "logical")
+  else as.logical(test)
+  ans <- test
+  len <- length(ans)
+  ypos <- which(test)
+  npos <- which(!test)
+  if (length(ypos) > 0L) 
+    ans[ypos] <- rep(yes, length.out = len)[ypos]
+  if (length(npos) > 0L) 
+    ans[npos] <- rep(no, length.out = len)[npos]
+  ans
+}
+```
+Although the code seems to be way more complicated than the one that I wrote for "if...else...", at some extent, both have the same funciton.

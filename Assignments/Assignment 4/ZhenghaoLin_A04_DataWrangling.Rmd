@@ -44,16 +44,20 @@ getwd()
 #1c 
 #read dataset
 EPAair_O3_NC2018 <- 
-  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_O3_NC2018_raw.csv", as.is = FALSE)
+  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_O3_NC2018_raw.csv", 
+           as.is = FALSE)
 
 EPAair_PM25_NC2018 <- 
-  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_PM25_NC2018_raw.csv", as.is = FALSE)
+  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_PM25_NC2018_raw.csv", 
+           as.is = FALSE)
 
 EPAair_O3_NC2019 <-
-  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_O3_NC2019_raw.csv", as.is = FALSE)
+  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_O3_NC2019_raw.csv", 
+           as.is = FALSE)
 
 EPAair_PM25_NC2019 <- 
-  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_PM25_NC2019_raw.csv", as.is = FALSE)
+  read.csv("/Users/lzh/Desktop/EDE_Fall2023/Data/Raw/EPAair_PM25_NC2019_raw.csv", 
+           as.is = FALSE)
 
 #2 
 glimpse(EPAair_O3_NC2018$Date)
@@ -87,23 +91,29 @@ EPAair_PM25_NC2019$Date <- mdy(EPAair_PM25_NC2019$Date)
 #4
 #select required columns
 EPAair_O3_NC2018_Processed <- EPAair_O3_NC2018 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, 
+         SITE_LATITUDE, SITE_LONGITUDE)
 
 EPAair_PM25_NC2018_Processed <- EPAair_PM25_NC2018 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, 
+         SITE_LATITUDE, SITE_LONGITUDE)
 
 EPAair_O3_NC2019_Processed <- EPAair_O3_NC2019 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, 
+         SITE_LATITUDE, SITE_LONGITUDE)
 
 EPAair_PM25_NC2019_Processed <- EPAair_PM25_NC2019 %>% 
-  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+  select(Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, 
+         SITE_LATITUDE, SITE_LONGITUDE)
 
 #5
 #change all value under AQS_PARAMETER_DESC column as PM2.5 
 #for EPAair_PM25_NC2018_Processed & EPAair_PM25_NC2019_Processed
-EPAair_PM25_NC2018_Processed <-  EPAair_PM25_NC2018_Processed %>% mutate(AQS_PARAMETER_DESC = "PM2.5")
+EPAair_PM25_NC2018_Processed <-  EPAair_PM25_NC2018_Processed %>% 
+  mutate(AQS_PARAMETER_DESC = "PM2.5")
 
-EPAair_PM25_NC2019_Processed <-  EPAair_PM25_NC2019_Processed %>% mutate(AQS_PARAMETER_DESC = "PM2.5")
+EPAair_PM25_NC2019_Processed <-  EPAair_PM25_NC2019_Processed %>% 
+  mutate(AQS_PARAMETER_DESC = "PM2.5")
 
 #6
 #save datasets into the processed file

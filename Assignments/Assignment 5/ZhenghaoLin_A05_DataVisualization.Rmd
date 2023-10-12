@@ -116,32 +116,30 @@ Tip:
 # Create separate boxplots for temperature, TP, and TN
 
 boxplot_temp <- PP_chemnutr %>%
-  ggplot(aes(x = month, y = temperature_C, fill = lakename)) +
+  ggplot(aes(x = factor(month, levels = 1:12, labels = month.abb), y = temperature_C, color = lakename)) + 
+  scale_x_discrete(name = "month", drop = FALSE) +
   geom_boxplot() +
-  xlim(6,12) +
   labs(title = "Temperature_C") + 
   theme(legend.position = "none") +
   theme(plot.title = element_text(size = 10))
 
 boxplot_tp <- PP_chemnutr %>%
-  ggplot(aes(x = month, y = tp_ug, fill = lakename)) +
+  ggplot(aes(x = factor(month, levels = 1:12, labels = month.abb), y = tp_ug, color = lakename)) +
   geom_boxplot() +
-  xlim(6,12) +
   labs(title = "Total Phosphorus (TP)") +
-  theme(legend.position = "bottom") + 
+  theme(legend.position = "none") + 
   theme(legend.title = element_text(size = 10))+
   theme(plot.title = element_text(size = 10)) 
 
 boxplot_tn <- PP_chemnutr %>%
-  ggplot(aes(x = month, y = tn_ug, fill = lakename)) +
+  ggplot(aes(x = factor(month, levels = 1:12, labels = month.abb), y = tn_ug, color = lakename)) +
   geom_boxplot() +
-  xlim(6,12) +
   labs(title = "Total Nitrogen (TN)") + 
-  theme(legend.position = "none") +
+  theme(legend.position = "bottom") +
   theme(plot.title = element_text(size = 12))
 
 # Combine the individual plots into a single cowplot
-combined_plot <- plot_grid(boxplot_temp, boxplot_tp, boxplot_tn, ncol = 3, align = "v")
+combined_plot <- plot_grid(boxplot_temp, boxplot_tp, boxplot_tn, nrow = 3, align = "h")
 
 #Picture is too large to be displayed in the window, zoom in to view the full graph.
 combined_plot 
@@ -153,8 +151,8 @@ Question: What do you observe about the variables of interest over seasons and b
 
 
 > Answer: 
-Season: Most observations are taken from June to September, 
-which is during the summer. 
+Season: Most observations are taken from May to September, 
+which is from late spring to early autumn. 
 Lakes: It's noticable that Peter lake, while the temperature is similar to Paul lake,
 do have higher total Phosphorus and nitrogen than Paul lake.
 
